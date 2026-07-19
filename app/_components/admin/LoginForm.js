@@ -6,7 +6,8 @@ import { createClient } from "@/app/_lib/supabase-auth";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
-  const unauthorized = searchParams.get("error") === "unauthorized";
+  const notAdmin = searchParams.get("error") === "not_admin";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -36,11 +37,15 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {unauthorized && (
-        <p className="text-sm text-red-600" role="alert">
-          You don&rsquo;t have access to the admin dashboard.
+      {notAdmin && (
+        <p
+          className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600"
+          role="alert"
+        >
+          That account doesn&rsquo;t have admin access.
         </p>
       )}
+
       <div>
         <label
           htmlFor="email"

@@ -16,8 +16,18 @@ export default async function AdminLayout({ children }) {
   const { data, error } = await supabase.auth.getClaims();
   const claims = data?.claims;
 
-  if (error || !claims || claims.email !== process.env.ADMIN_EMAIL) {
-    redirect("/admin/login?error=unauthorized");
+  // if (error || !claims || claims.email !== process.env.ADMIN_EMAIL) {
+  //   // redirect("/admin/login?error=unauthorized");
+  //   redirect("/admin/login");
+  // }
+
+  if (error || !claims) {
+    redirect("/admin/login");
+  }
+
+  if (claims.email !== process.env.ADMIN_EMAIL) {
+    await supabase.auth.signOut();
+    redirect("/admin/login?error=not_admin");
   }
 
   return (
