@@ -13,12 +13,11 @@ export default async function AdminLayout({ children }) {
 
   const supabase = await createClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getClaims();
+  const claims = data?.claims;
 
-  if (!user) {
-    redirect("/admin/login");
+  if (error || !claims || claims.email !== process.env.ADMIN_EMAIL) {
+    redirect("/admin/login?error=unauthorized");
   }
 
   return (

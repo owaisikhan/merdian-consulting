@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/app/_lib/supabase-auth";
 
 export default function LoginForm() {
+  const searchParams = useSearchParams();
+  const unauthorized = searchParams.get("error") === "unauthorized";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,12 +31,16 @@ export default function LoginForm() {
       return;
     }
 
-    router.push("/admin");
-    router.refresh();
+    window.location.href = "/admin";
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {unauthorized && (
+        <p className="text-sm text-red-600" role="alert">
+          You don&rsquo;t have access to the admin dashboard.
+        </p>
+      )}
       <div>
         <label
           htmlFor="email"
