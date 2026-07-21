@@ -14,6 +14,8 @@ const initialFormData = {
   serviceId: "",
   followUpAnswers: {},
   problemDescription: "",
+  aiSummary: null,
+  aiTags: null,
 };
 
 export function IntakeFormProvider({ children }) {
@@ -49,6 +51,10 @@ export function IntakeFormProvider({ children }) {
     }));
   }
 
+  function setAiAnalysis(summary, tags) {
+    setFormData((prev) => ({ ...prev, aiSummary: summary, aiTags: tags }));
+  }
+
   function goToStep(step) {
     setFormData((prev) => ({ ...prev, step }));
   }
@@ -73,6 +79,7 @@ export function IntakeFormProvider({ children }) {
         isLoaded,
         updateField,
         updateFollowUpAnswer,
+        setAiAnalysis,
         goToStep,
         nextStep,
         prevStep,

@@ -32,7 +32,7 @@ export default function IntakeForm() {
           Thanks for reaching out!
         </h2>
         <p className="mt-2 text-neutral-600">
-          We've received your project details and will be in touch shortly.
+          We&apos;ve received your project details and will be in touch shortly.
         </p>
         {/* Calendar embed will go here in the next stage */}
       </div>

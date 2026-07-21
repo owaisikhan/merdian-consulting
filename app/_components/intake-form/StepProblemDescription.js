@@ -1,13 +1,38 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { useIntakeForm } from "./IntakeFormContext";
+import { analyzeProblemDescription } from "@/app/_lib/aiActions";
 
 const MIN_LENGTH = 20;
+const DEBOUNCE_MS = 800;
 
 export default function StepProblemDescription() {
-  const { formData, updateField, nextStep, prevStep } = useIntakeForm();
+  const { formData, updateField, setAiAnalysis, nextStep, prevStep } = useIntakeForm();
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const debounceRef = useRef(null);
 
   const isValid = formData.problemDescription.trim().length >= MIN_LENGTH;
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    const text = formData.problemDescription.trim();
+    if (text.length < MIN_LENGTH) return;
+
+    debounceRef.current = setTimeout(async () => {
+      setIsAnalyzing(true);
+      const result = await analyzeProblemDescription(text);
+      setIsAnalyzing(false);
+
+      if (result.success) {
+        setAiAnalysis(result.summary, result.tags);
+      }
+    }, DEBOUNCE_MS);
+
+    return () => clearTimeout(debounceRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.problemDescription]);
 
   function handleContinue() {
     if (isValid) {
@@ -21,7 +46,7 @@ export default function StepProblemDescription() {
         Tell us about your project
       </h2>
       <p className="text-sm text-neutral-600">
-        Describe the problem you&apos;re trying to solve or the project you have
+        Describe the problem you're trying to solve or the project you have
         in mind. The more detail you give, the better we can prepare for our
         conversation.
       </p>
@@ -40,9 +65,29 @@ export default function StepProblemDescription() {
         <p className="mt-1 text-xs text-neutral-500">
           {formData.problemDescription.trim().length < MIN_LENGTH
             ? `Please write at least ${MIN_LENGTH} characters.`
+            : isAnalyzing
+            ? "Analyzing..."
             : "Looks good."}
         </p>
       </div>
+
+      {formData.aiTags && (
+        <div className="rounded-md bg-primary-50 p-3">
+          <p className="text-xs font-medium text-primary-700">
+            Detected topics
+          </p>
+          <div className="mt-1 flex flex-wrap gap-1">
+            {formData.aiTags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-white px-2 py-1 text-xs text-primary-700"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="flex justify-between pt-2">
         <button

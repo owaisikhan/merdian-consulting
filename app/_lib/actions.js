@@ -3,7 +3,16 @@
 import { supabase } from "@/app/_lib/supabase";
 
 export async function submitLead(formData) {
-  const { fullName, email, phone, serviceId, followUpAnswers, problemDescription } = formData;
+  const {
+    fullName,
+    email,
+    phone,
+    serviceId,
+    followUpAnswers,
+    problemDescription,
+    aiSummary,
+    aiTags,
+  } = formData;
 
   if (!fullName || !email || !serviceId || !problemDescription) {
     return { success: false, error: "Missing required fields." };
@@ -16,6 +25,8 @@ export async function submitLead(formData) {
     service_id: serviceId,
     follow_up_answers: followUpAnswers,
     problem_description: problemDescription,
+    ai_summary: aiSummary || null,
+    ai_tags: aiTags || null,
     status: "New",
   });
 
