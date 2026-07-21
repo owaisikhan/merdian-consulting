@@ -7,6 +7,7 @@ import StepServiceSelect from "./StepServiceSelect";
 import StepDynamicFollowUp from "./StepDynamicFollowUp";
 import StepProblemDescription from "./StepProblemDescription";
 import StepReviewSubmit from "./StepReviewSubmit";
+import CalendarEmbed from "./CalendarEmbed";
 import ProgressSteps from "@/app/_components/ui/ProgressSteps";
 
 const STEP_LABELS = [
@@ -32,9 +33,10 @@ export default function IntakeForm() {
           Thanks for reaching out!
         </h2>
         <p className="mt-2 text-neutral-600">
-          We&apos;ve received your project details and will be in touch shortly.
+          We've received your project details. Feel free to book a time to
+          talk below, or we'll be in touch shortly.
         </p>
-        {/* Calendar embed will go here in the next stage */}
+        <CalendarEmbed />
       </div>
     );
   }

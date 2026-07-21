@@ -1,6 +1,8 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { supabase } from "@/app/_lib/supabase";
+import { createClient } from "@/app/_lib/supabase-server";
 
 export async function submitLead(formData) {
   const {
@@ -35,5 +37,22 @@ export async function submitLead(formData) {
     return { success: false, error: "Something went wrong. Please try again." };
   }
 
+  return { success: true };
+}
+
+export async function updateLeadStatus(leadId, newStatus) {
+  const supabaseServer = await createClient();
+
+  const { error } = await supabaseServer
+    .from("leads")
+    .update({ status: newStatus })
+    .eq("id", leadId);
+
+  if (error) {
+    console.error("updateLeadStatus error:", error.message);
+    return { success: false, error: "Could not update status." };
+  }
+
+  revalidatePath("/admin");
   return { success: true };
 }
