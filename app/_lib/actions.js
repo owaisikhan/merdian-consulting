@@ -56,3 +56,35 @@ export async function updateLeadStatus(leadId, newStatus) {
   revalidatePath("/admin");
   return { success: true };
 }
+
+export async function updateSiteSettings(formData) {
+  const { contactEmail, contactPhone, contactAddress } = formData;
+
+  if (!contactEmail || !contactPhone || !contactAddress) {
+    return { success: false, error: "All fields are required." };
+  }
+
+  const supabaseServer = await createClient();
+
+  const { error } = await supabaseServer
+    .from("site_settings")
+    .update({
+      contact_email: contactEmail,
+      contact_phone: contactPhone,
+      contact_address: contactAddress,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", 1);
+
+  if (error) {
+    console.error("updateSiteSettings error:", error.message);
+    return { success: false, error: "Could not update settings." };
+  }
+
+  revalidatePath("/admin/settings");
+  revalidatePath("/");
+  revalidatePath("/about");
+  revalidatePath("/contact");
+
+  return { success: true };
+}

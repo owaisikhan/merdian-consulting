@@ -40,21 +40,39 @@ export default async function AdminDashboardPage({ searchParams }) {
           <table className="w-full text-left text-sm">
             <thead className="border-b border-neutral-200 bg-neutral-50">
               <tr>
-                <th className="px-4 py-3 font-medium text-neutral-700">Name</th>
-                <th className="px-4 py-3 font-medium text-neutral-700">
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-medium text-neutral-700"
+                >
+                  Name
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-medium text-neutral-700"
+                >
                   Email
                 </th>
-                <th className="px-4 py-3 font-medium text-neutral-700">
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-medium text-neutral-700"
+                >
                   Service
                 </th>
-                <th className="px-4 py-3 font-medium text-neutral-700">
-                  <a
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-medium text-neutral-700"
+                >
+                  <Link
                     href={`/admin?status=${statusFilter}&sort=${sortDir === "asc" ? "desc" : "asc"}`}
+                    aria-label={`Sort by date submitted, currently ${sortDir === "asc" ? "oldest first" : "newest first"}`}
                   >
                     Submitted {sortDir === "asc" ? "↑" : "↓"}
-                  </a>
+                  </Link>
                 </th>
-                <th className="px-4 py-3 font-medium text-neutral-700">
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-medium text-neutral-700"
+                >
                   Status
                 </th>
               </tr>

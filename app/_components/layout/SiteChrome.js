@@ -1,10 +1,8 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 
-export default function SiteChrome({ children }) {
+export default function SiteChrome({ navbar, footer, children }) {
   const pathname = usePathname();
   const isAdminRoute = pathname.startsWith("/admin");
 
@@ -14,9 +12,9 @@ export default function SiteChrome({ children }) {
 
   return (
     <>
-      <Navbar />
+      {navbar}
       <main className="flex-1">{children}</main>
-      <Footer />
+      {footer}
     </>
   );
 }
