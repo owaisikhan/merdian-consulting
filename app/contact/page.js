@@ -1,7 +1,17 @@
 import ContactForm from "@/app/_components/contact/ContactForm";
+import { getSiteSettings } from "@/app/_lib/data-service";
 import { SITE_CONFIG } from "@/app/_lib/siteConfig";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSiteSettings();
+  const contact = settings
+    ? {
+        email: settings.contact_email,
+        phone: settings.contact_phone,
+        address: settings.contact_address,
+      }
+    : SITE_CONFIG.contact;
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-20">
       <h1 className="text-3xl font-semibold text-neutral-900">Contact Us</h1>
@@ -19,9 +29,9 @@ export default function ContactPage() {
       </div>
 
       <div className="mt-12 border-t border-neutral-200 pt-8 text-sm text-neutral-600">
-        <p>{SITE_CONFIG.contact.address}</p>
+        <p>{contact.address}</p>
         <p className="mt-1">
-          {SITE_CONFIG.contact.phone} · {SITE_CONFIG.contact.email}
+          {contact.phone} · {contact.email}
         </p>
       </div>
     </div>
