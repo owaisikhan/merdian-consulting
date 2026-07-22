@@ -18,21 +18,26 @@ const initialFormData = {
   aiTags: null,
 };
 
-export function IntakeFormProvider({ children }) {
+export function IntakeFormProvider({ children, initialServiceId }) {
   const [formData, setFormData] = useState(initialFormData);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
+    let nextFormData = initialFormData;
     if (saved) {
       try {
-        setFormData(JSON.parse(saved));
+        nextFormData = JSON.parse(saved);
       } catch {
         // Corrupted data, ignore and start fresh
       }
     }
+    if (initialServiceId) {
+      nextFormData = { ...nextFormData, serviceId: initialServiceId };
+    }
+    setFormData(nextFormData);
     setIsLoaded(true);
-  }, []);
+  }, [initialServiceId]);
 
   useEffect(() => {
     if (isLoaded) {
