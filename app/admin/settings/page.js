@@ -1,5 +1,6 @@
 import { getSiteSettings } from "@/app/_lib/data-service";
 import SettingsForm from "@/app/_components/admin/SettingsForm";
+import AdminFadeIn from "@/app/_components/admin/AdminFadeIn";
 import { SITE_CONFIG } from "@/app/_lib/siteConfig";
 
 export default async function AdminSettingsPage() {
@@ -12,9 +13,16 @@ export default async function AdminSettingsPage() {
   };
 
   return (
-    <div>
-      <h1 className="mb-6 text-2xl font-semibold text-neutral-900">Settings</h1>
-      <SettingsForm initialSettings={initialSettings} />
-    </div>
+    <AdminFadeIn>
+      <h1
+        className="mb-6 text-2xl font-semibold text-neutral-900"
+        data-admin-fade
+      >
+        Settings
+      </h1>
+      <div data-admin-fade>
+        <SettingsForm initialSettings={initialSettings} />
+      </div>
+    </AdminFadeIn>
   );
 }
