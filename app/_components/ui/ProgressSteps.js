@@ -20,7 +20,7 @@ export default function ProgressSteps({ currentStep, totalSteps, labels }) {
             >
               {stepNumber}
             </div>
-            <span className="mt-2 text-center text-xs text-neutral-600">
+            <span className="mt-2 hidden text-center text-xs text-neutral-600 sm:block">
               {label}
             </span>
           </li>

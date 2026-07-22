@@ -14,10 +14,13 @@ export default async function AdminDashboardPage({ searchParams }) {
 
   return (
     <AdminFadeIn>
-      <div className="mb-6 flex items-center justify-between" data-admin-fade>
+      <div
+        className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+        data-admin-fade
+      >
         <h1 className="text-2xl font-semibold text-neutral-900">Leads</h1>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {STATUS_FILTERS.map((status) => (
             <Link
               key={status}
