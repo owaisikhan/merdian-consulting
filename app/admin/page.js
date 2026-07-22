@@ -1,5 +1,6 @@
 import { getLeads } from "@/app/_lib/data-service";
 import LeadStatusUpdater from "@/app/_components/admin/LeadStatusUpdater";
+import AdminFadeIn from "@/app/_components/admin/AdminFadeIn";
 import Link from "next/link";
 
 const STATUS_FILTERS = ["all", "New", "Meeting Scheduled", "Archived"];
@@ -12,8 +13,8 @@ export default async function AdminDashboardPage({ searchParams }) {
   const leads = await getLeads({ statusFilter, sortDir });
 
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between">
+    <AdminFadeIn>
+      <div className="mb-6 flex items-center justify-between" data-admin-fade>
         <h1 className="text-2xl font-semibold text-neutral-900">Leads</h1>
 
         <div className="flex gap-2">
@@ -34,9 +35,14 @@ export default async function AdminDashboardPage({ searchParams }) {
       </div>
 
       {leads.length === 0 ? (
-        <p className="text-neutral-600">No leads found.</p>
+        <p className="text-neutral-600" data-admin-fade>
+          No leads found.
+        </p>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-neutral-200 bg-white">
+        <div
+          className="overflow-x-auto rounded-lg border border-neutral-200 bg-white"
+          data-admin-fade
+        >
           <table className="w-full text-left text-sm">
             <thead className="border-b border-neutral-200 bg-neutral-50">
               <tr>
@@ -105,6 +111,6 @@ export default async function AdminDashboardPage({ searchParams }) {
           </table>
         </div>
       )}
-    </div>
+    </AdminFadeIn>
   );
 }

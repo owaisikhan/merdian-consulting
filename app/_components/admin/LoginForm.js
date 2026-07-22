@@ -1,18 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { gsap } from "gsap";
 import { createClient } from "@/app/_lib/supabase-auth";
 
 export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const formRef = useRef(null);
 
   const [notAdmin, setNotAdmin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(formRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        ease: "power2.out",
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   // Read the URL param ONCE, on mount, then immediately strip it from
   // the URL so it doesn't linger and re-apply on future attempts.
@@ -47,7 +62,7 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
       {notAdmin && (
         <p
           className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600"
