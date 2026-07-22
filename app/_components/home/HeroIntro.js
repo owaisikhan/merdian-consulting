@@ -33,7 +33,7 @@ export default function HeroIntro({ tagline, blurb }) {
   return (
     <section
       ref={rootRef}
-      className="mx-auto max-w-6xl px-4 py-24 text-center"
+      className="mx-auto max-w-6xl px-4 py-16 text-center sm:py-24"
     >
       <h1
         data-hero-heading
@@ -47,7 +47,10 @@ export default function HeroIntro({ tagline, blurb }) {
       >
         {blurb}
       </p>
-      <div data-hero-cta className="mt-8 flex justify-center gap-4">
+      <div
+        data-hero-cta
+        className="mt-8 flex flex-col justify-center gap-4 sm:flex-row"
+      >
         <Link
           href="/intake"
           className="inline-block rounded-md bg-primary-600 px-6 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-primary-700"

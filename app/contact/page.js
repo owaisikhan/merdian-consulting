@@ -13,7 +13,7 @@ export default async function ContactPage() {
     : SITE_CONFIG.contact;
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-20">
+    <div className="mx-auto max-w-2xl px-4 py-12 sm:py-20">
       <h1 className="text-3xl font-semibold text-neutral-900">Contact Us</h1>
       <p className="mt-4 text-neutral-600">
         Have a quick question before starting a project? Send us a message
