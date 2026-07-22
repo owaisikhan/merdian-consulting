@@ -1,5 +1,6 @@
 import { getSiteSettings } from "@/app/_lib/data-service";
 import { SITE_CONFIG } from "@/app/_lib/siteConfig";
+import AboutHeroIllustration from "@/app/_components/about/AboutHeroIllustration";
 
 export default async function AboutPage() {
   const settings = await getSiteSettings();
@@ -17,7 +18,9 @@ export default async function AboutPage() {
         About {SITE_CONFIG.firmName}
       </h1>
 
-      <p className="mt-6 text-neutral-700">{SITE_CONFIG.aboutBlurb}</p>
+      <AboutHeroIllustration className="mt-8 aspect-[21/9] w-full" />
+
+      <p className="mt-8 text-neutral-700">{SITE_CONFIG.aboutBlurb}</p>
 
       <h2 className="mt-12 text-xl font-semibold text-neutral-900">
         Our Approach

@@ -4,6 +4,7 @@ import { TESTIMONIALS } from "@/app/_data/testimonials";
 import HeroIntro from "@/app/_components/home/HeroIntro";
 import ServiceCard from "@/app/_components/services/ServiceCard";
 import ScrollReveal from "@/app/_components/ui/ScrollReveal";
+import InitialsAvatar from "@/app/_components/ui/InitialsAvatar";
 
 export default function HomePage() {
   return (
@@ -50,12 +51,14 @@ export default function HomePage() {
                   <p className="text-neutral-700">
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>
-                  <footer className="mt-4 text-sm font-medium text-neutral-900">
-                    {testimonial.name}
-                    <span className="font-normal text-neutral-500">
-                      {" "}
-                      — {testimonial.company}
-                    </span>
+                  <footer className="mt-4 flex items-center gap-3">
+                    <InitialsAvatar name={testimonial.name} />
+                    <div className="text-sm font-medium text-neutral-900">
+                      {testimonial.name}
+                      <span className="block font-normal text-neutral-500">
+                        {testimonial.company}
+                      </span>
+                    </div>
                   </footer>
                 </blockquote>
               </ScrollReveal>
