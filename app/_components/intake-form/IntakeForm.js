@@ -21,6 +21,7 @@ const STEP_LABELS = [
 export default function IntakeForm() {
   const { formData, isLoaded } = useIntakeForm();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedSummary, setSubmittedSummary] = useState(null);
 
   if (!isLoaded) {
     return <p className="text-neutral-500">Loading...</p>;
@@ -36,6 +37,14 @@ export default function IntakeForm() {
           We've received your project details. Feel free to book a time to
           talk below, or we'll be in touch shortly.
         </p>
+        {submittedSummary && (
+          <div className="mt-4 rounded-md bg-primary-50 p-4 text-left text-sm">
+            <p className="font-medium text-primary-700">
+              Here&apos;s what we understood from your description:
+            </p>
+            <p className="mt-1 text-primary-800">{submittedSummary}</p>
+          </div>
+        )}
         <CalendarEmbed />
       </div>
     );
@@ -54,7 +63,12 @@ export default function IntakeForm() {
       {formData.step === 3 && <StepDynamicFollowUp />}
       {formData.step === 4 && <StepProblemDescription />}
       {formData.step === 5 && (
-        <StepReviewSubmit onSubmitted={() => setIsSubmitted(true)} />
+        <StepReviewSubmit
+          onSubmitted={(aiSummary) => {
+            setSubmittedSummary(aiSummary);
+            setIsSubmitted(true);
+          }}
+        />
       )}
     </div>
   );

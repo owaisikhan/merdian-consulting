@@ -25,8 +25,9 @@ export default function StepReviewSubmit({ onSubmitted }) {
       return;
     }
 
+    const aiSummary = formData.aiSummary;
     resetForm();
-    onSubmitted();
+    onSubmitted(aiSummary);
   }
 
   return (

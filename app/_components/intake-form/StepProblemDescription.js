@@ -10,6 +10,7 @@ const DEBOUNCE_MS = 800;
 export default function StepProblemDescription() {
   const { formData, updateField, setAiAnalysis, nextStep, prevStep } = useIntakeForm();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisFailed, setAnalysisFailed] = useState(false);
   const debounceRef = useRef(null);
 
   const isValid = formData.problemDescription.trim().length >= MIN_LENGTH;
@@ -22,11 +23,14 @@ export default function StepProblemDescription() {
 
     debounceRef.current = setTimeout(async () => {
       setIsAnalyzing(true);
+      setAnalysisFailed(false);
       const result = await analyzeProblemDescription(text);
       setIsAnalyzing(false);
 
       if (result.success) {
         setAiAnalysis(result.summary, result.tags);
+      } else {
+        setAnalysisFailed(true);
       }
     }, DEBOUNCE_MS);
 
@@ -67,6 +71,8 @@ export default function StepProblemDescription() {
             ? `Please write at least ${MIN_LENGTH} characters.`
             : isAnalyzing
             ? "Analyzing..."
+            : analysisFailed
+            ? "Automatic analysis isn't available right now — you can still continue."
             : "Looks good."}
         </p>
       </div>
