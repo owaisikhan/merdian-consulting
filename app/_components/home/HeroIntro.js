@@ -14,7 +14,7 @@ function HeroCtas({ variant = "default" }) {
         href="/intake"
         className={
           isOverlay
-            ? "inline-flex shrink-0 items-center justify-center rounded-full bg-primary-600 px-4 py-2 text-xs font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-primary-700"
+            ? "inline-flex shrink-0 items-center justify-center rounded-full border border-white/40 bg-primary-500/30 px-4 py-2 text-xs font-medium text-white shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-primary-500/40"
             : "inline-block rounded-md bg-primary-600 px-6 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-primary-700"
         }
       >
@@ -24,7 +24,7 @@ function HeroCtas({ variant = "default" }) {
         href="#services"
         className={
           isOverlay
-            ? "inline-flex shrink-0 items-center justify-center rounded-full border border-white/70 bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white/20"
+            ? "inline-flex shrink-0 items-center justify-center rounded-full border border-white/40 bg-white/15 px-4 py-2 text-xs font-medium text-white shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/25"
             : "inline-block rounded-md border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 transition hover:-translate-y-0.5 hover:border-neutral-400"
         }
       >

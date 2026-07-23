@@ -18,7 +18,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="border-b border-neutral-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-white/40 bg-white/70 shadow-sm backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link href="/" className="text-lg font-semibold text-neutral-900" onClick={close}>
           {SITE_CONFIG.firmName}
@@ -73,7 +73,7 @@ export default function Navbar() {
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
-        className={`fixed inset-y-0 right-0 z-50 w-72 max-w-[80%] transform bg-white shadow-xl transition-transform duration-300 ease-in-out sm:hidden ${
+        className={`fixed inset-y-0 right-0 z-50 w-72 max-w-[80%] transform border-l border-white/40 bg-white/80 shadow-xl backdrop-blur-lg transition-transform duration-300 ease-in-out sm:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
