@@ -22,13 +22,17 @@ export default function HomePage() {
               Our Services
             </h2>
             <p className="mt-2 max-w-2xl text-neutral-600">
-              Practical, hands-on help — pick the area you need and see how
-              we approach it.
+              Practical, hands-on help — pick the area you need and see how we
+              approach it.
             </p>
           </ScrollReveal>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((service, index) => (
-              <ScrollReveal key={service.id} delay={index * 0.08} className="h-full">
+              <ScrollReveal
+                key={service.id}
+                delay={index * 0.08}
+                className="h-full"
+              >
                 <ServiceCard service={service} />
               </ScrollReveal>
             ))}
@@ -47,7 +51,7 @@ export default function HomePage() {
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             {TESTIMONIALS.map((testimonial, index) => (
               <ScrollReveal key={testimonial.id} delay={index * 0.08}>
-                <blockquote className="rounded-lg border border-neutral-200 bg-white p-6">
+                <blockquote className="rounded-lg border border-neutral-200 bg-white p-6 h-full">
                   <p className="text-neutral-700">
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>

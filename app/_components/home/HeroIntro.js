@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { gsap } from "gsap";
@@ -14,7 +14,7 @@ function HeroCtas({ variant = "default" }) {
         href="/intake"
         className={
           isOverlay
-            ? "inline-flex shrink-0 items-center justify-center rounded-full border border-white/40 bg-primary-500/30 px-4 py-2 text-xs font-medium text-white shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-primary-500/40"
+            ? "inline-flex shrink-0 items-center justify-center rounded-full border border-white/40 bg-primary-500/50 px-6 py-4 text-sm font-bold text-white shadow-sm backdrop-blur-lg transition hover:-translate-y-0.5 hover:bg-primary-500/70"
             : "inline-block rounded-md bg-primary-600 px-6 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-primary-700"
         }
       >
@@ -24,7 +24,7 @@ function HeroCtas({ variant = "default" }) {
         href="#services"
         className={
           isOverlay
-            ? "inline-flex shrink-0 items-center justify-center rounded-full border border-white/40 bg-white/15 px-4 py-2 text-xs font-medium text-white shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/25"
+            ? "inline-flex shrink-0 items-center justify-center rounded-full border border-white/40 bg-white/15 px-6 py-4 text-sm font-bold text-white shadow-sm backdrop-blur-lg transition hover:-translate-y-0.5 hover:bg-white/50"
             : "inline-block rounded-md border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 transition hover:-translate-y-0.5 hover:border-neutral-400"
         }
       >
@@ -35,6 +35,7 @@ function HeroCtas({ variant = "default" }) {
 }
 
 export default function HeroIntro({ tagline, blurb }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const rootRef = useRef(null);
 
   useEffect(() => {
@@ -55,21 +56,25 @@ export default function HeroIntro({ tagline, blurb }) {
           { opacity: 0, y: 20, duration: 0.6 },
           "-=0.4",
         )
-        .from(
-          "[data-hero-cta]",
-          { opacity: 0, y: 16, duration: 0.5 },
-          "-=0.3",
-        );
+        .from("[data-hero-cta]", { opacity: 0, y: 16, duration: 0.5 }, "-=0.3");
     }, rootRef);
 
     return () => ctx.revert();
   }, []);
 
+  function truncateByWords(text, maxLength) {
+    if (text.length <= maxLength) return text;
+    const truncated = text.slice(0, maxLength);
+    const lastSpace = truncated.lastIndexOf(" ");
+    return (lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated) + "…";
+  }
+
+  // usage
+  {
+    isExpanded ? blurb : truncateByWords(blurb, 60);
+  }
   return (
-    <section
-      ref={rootRef}
-      className="mx-auto max-w-6xl px-4 py-16 sm:py-24"
-    >
+    <section ref={rootRef} className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
       <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
         <h1
           data-hero-heading
@@ -92,15 +97,29 @@ export default function HeroIntro({ tagline, blurb }) {
               className="object-cover"
             />
           </div>
-          <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-2 bg-neutral-900/30 p-4 lg:hidden">
+          <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-5 bg-neutral-900/30 p-4 lg:hidden">
             <HeroCtas variant="overlay" />
           </div>
         </div>
 
+        {/* Mobile: truncated with toggle */}
         <p
           data-hero-blurb
-          className="order-3 mx-auto max-w-2xl text-center text-lg text-neutral-600 lg:order-none lg:col-start-1 lg:row-start-2 lg:mx-0 lg:text-left"
+          className="order-3 mx-auto max-w-2xl text-center text-lg text-neutral-600 lg:hidden"
         >
+          {isExpanded ? blurb : truncateByWords(blurb, 60)}
+          <button
+            type="button"
+            onClick={() => setIsExpanded((expand) => !expand)}
+            aria-expanded={isExpanded}
+            className="ml-1 font-medium text-primary-700 underline text-sm"
+          >
+            {isExpanded ? " Show less" : " Show more..."}
+          </button>
+        </p>
+
+        {/* Desktop: always full text, no button */}
+        <p className="order-3 mx-auto hidden max-w-2xl text-lg text-neutral-600 lg:order-none lg:col-start-1 lg:row-start-2 lg:mx-0 lg:block lg:text-left">
           {blurb}
         </p>
 
