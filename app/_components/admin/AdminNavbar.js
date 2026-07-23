@@ -35,9 +35,14 @@ export default function AdminNavbar() {
       className="border-b border-neutral-200 bg-white px-4 py-4"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between">
-        <span className="text-lg font-semibold text-neutral-900">
-          Meridian Admin
-        </span>
+        <Link href="/admin" className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 text-sm font-bold text-white shadow-sm">
+            M
+          </span>
+          <span className="text-lg font-semibold text-neutral-900">
+            Meridian <span className="font-normal text-neutral-500">Admin</span>
+          </span>
+        </Link>
         <div className="flex items-center gap-4">
           <Link
             href="/admin/settings"
