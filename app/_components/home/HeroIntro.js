@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { gsap } from "gsap";
-import HeroVisual from "./HeroVisual";
 
 export default function HeroIntro({ tagline, blurb }) {
   const rootRef = useRef(null);
@@ -73,8 +73,15 @@ export default function HeroIntro({ tagline, blurb }) {
             </a>
           </div>
         </div>
-        <div data-hero-visual>
-          <HeroVisual />
+        <div data-hero-visual className="relative mx-auto aspect-[3/2] w-full max-w-lg overflow-hidden rounded-2xl lg:mx-0">
+          <Image
+            src="/hero.png"
+            alt="Illustration of a technology dashboard and development tools"
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            priority
+            className="object-cover"
+          />
         </div>
       </div>
     </section>
