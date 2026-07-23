@@ -11,26 +11,16 @@ export default function ServiceHeroVisual({ service, size = "card" }) {
   const src = IMAGE_SRC[service.id];
   const isHero = size === "hero";
 
-  const image = (
-    <Image
-      src={src}
-      alt={service.name}
-      fill
-      sizes={isHero ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"}
-      priority={isHero}
-      className="object-cover"
-    />
-  );
-
   return (
     <div className="relative aspect-[3/2] w-full overflow-hidden rounded-xl">
-      {isHero ? (
-        image
-      ) : (
-        <div className="absolute inset-0 origin-center scale-[2] -translate-x-[33%]">
-          {image}
-        </div>
-      )}
+      <Image
+        src={src}
+        alt={service.name}
+        fill
+        sizes={isHero ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"}
+        priority={isHero}
+        className="object-cover"
+      />
     </div>
   );
 }
