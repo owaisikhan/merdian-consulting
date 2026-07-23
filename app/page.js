@@ -28,7 +28,7 @@ export default function HomePage() {
           </ScrollReveal>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((service, index) => (
-              <ScrollReveal key={service.id} delay={index * 0.08}>
+              <ScrollReveal key={service.id} delay={index * 0.08} className="h-full">
                 <ServiceCard service={service} />
               </ScrollReveal>
             ))}

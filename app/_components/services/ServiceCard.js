@@ -3,7 +3,7 @@ import ServiceHeroVisual from "./ServiceHeroVisual";
 
 export default function ServiceCard({ service }) {
   return (
-    <div className="group flex flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white transition hover:-translate-y-1 hover:shadow-lg">
+    <div className="group flex h-full flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white transition hover:-translate-y-1 hover:shadow-lg">
       <ServiceHeroVisual service={service} />
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-medium text-neutral-900">{service.name}</h3>
